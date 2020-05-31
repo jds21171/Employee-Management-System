@@ -1,3 +1,5 @@
+-- Populating my database with some data.
+
 USE employeesDB;
 
 INSERT INTO department (name)

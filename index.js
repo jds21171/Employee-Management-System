@@ -1,3 +1,5 @@
+// Need to npm install before you can run the application
+
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 require("console.table");
@@ -6,16 +8,20 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "Momandme1!@",
-  database: "employeesDB"
+//   Enter your unique password for your MySQL database
+  password: "",
+//   Enter your unique database name that holds your data
+  database: ""
 });
 
+// Begin connection
 connection.connect(function (err) {
     if (err) throw err;
     console.log(`\n connected as id ${connection.threadId} \n`);
     askQuestions();
 });
 
+// Prompt users when they begin the application
 function askQuestions() {
     inquirer.prompt({
         message: "what would you like to do?",
@@ -35,7 +41,7 @@ function askQuestions() {
         ],
         name: "choice"
     }).then(answers => {
-        // console.log(answers.choice);
+        // Utilizing a switch case to efficiently direct the application to the appropriate place
         switch (answers.choice) {
             case "add department":
                 addDepartment()
@@ -84,6 +90,7 @@ function askQuestions() {
     })
 }
 
+// Adds a department to the department table in the database
 function addDepartment() {
     inquirer.prompt([{
         type: "input",
@@ -98,6 +105,7 @@ function addDepartment() {
     })
 }
 
+// Adds an employee to the employee table in the database
 function addEmployee() {
     inquirer.prompt([{
             type: "input",
@@ -128,6 +136,7 @@ function addEmployee() {
     })
 }
 
+// Adds a role to the role table in the database
 function addRole() {
     inquirer.prompt([
         {
@@ -153,6 +162,7 @@ function addRole() {
 
 }
 
+// Deletes a department from the department table in the database
 function deleteDepartment() {
     inquirer.prompt([{
         type: "input",
@@ -167,6 +177,7 @@ function deleteDepartment() {
     })
 }
 
+// Deletes an employee from the employee table in the database
 function deleteEmployee() {
     inquirer.prompt([{
         type: "input",
@@ -181,6 +192,7 @@ function deleteEmployee() {
     })
 }
 
+// Deletes a role from the role table in the database
 function deleteRole() {
     inquirer.prompt([{
         type: "input",
@@ -195,6 +207,7 @@ function deleteRole() {
     })
 }
 
+// Updates the role_id for an employee in the employee databse
 function updateEmployeeRole() {
     inquirer.prompt([
         {
@@ -215,6 +228,7 @@ function updateEmployeeRole() {
     })
 }
 
+// Allows user to view all departments in the department table in the database
 function viewDepartments() {
     connection.query("SELECT * FROM department", function (err, data) {
         if (err) throw err;
@@ -224,6 +238,7 @@ function viewDepartments() {
     })
 }
 
+// Allows user to view all employees in the employee table in the database
 function viewEmployees() {
     connection.query("SELECT * FROM employee", function (err, data) {
         if (err) throw err;
@@ -233,6 +248,7 @@ function viewEmployees() {
     })
 }
 
+// Allows user to view all roles in the roll table in the database
 function viewRoles() {
     connection.query("SELECT * FROM role", function (err, data) {
         if (err) throw err;
